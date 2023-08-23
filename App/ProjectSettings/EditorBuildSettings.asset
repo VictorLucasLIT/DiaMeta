@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GRAFICO.unity
     guid: 518cc9b17da6a23418f381694a097f30
+  - enabled: 1
+    path: Assets/Scenes/DIAS.unity
+    guid: 92e59a8262bf59e439eee24c92617756
+  - enabled: 1
+    path: Assets/Scenes/GRAFICO2.unity
+    guid: a06518ce4007a5e428e8f314b197055d
   m_configObjects: {}

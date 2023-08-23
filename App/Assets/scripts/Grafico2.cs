@@ -41,7 +41,6 @@ public class Grafico2 : MonoBehaviour
             PlayerPrefs.Save();
     }
 
-
     void AddGlicose(int valor)
     {
         if (vez!=7)

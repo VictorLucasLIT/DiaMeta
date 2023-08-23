@@ -6,20 +6,20 @@ using UnityEngine.SceneManagement;
 
 public class NovaTela1 : MonoBehaviour
 {
-    public static string instance1;
+    /*public static string instance1;
     public static string instance2;
-    public static string instance3;
+    public static string instance3;*/
 
     public string inputGlicemia;
     public string inputData; 
     public string inputHora;
     
-    void start()
+    /*void start()
     {
         instance1= inputGlicemia;
         instance2= inputData;
         instance3= inputHora;
-    }
+    }*/
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
