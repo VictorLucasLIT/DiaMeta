@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GRAFICO2.unity
     guid: a06518ce4007a5e428e8f314b197055d
+  - enabled: 1
+    path: Assets/Scenes/CADASTRO.unity
+    guid: 4c3e7a64ae8889e4cb8abb3f06a0b264
   m_configObjects: {}
