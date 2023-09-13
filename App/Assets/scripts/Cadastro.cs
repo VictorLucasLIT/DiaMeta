@@ -35,7 +35,8 @@ public class Cadastro : MonoBehaviour
         reader = dbcmd.ExecuteReader();
         while(reader.Read())
         {
-            //Essa parte e para pegar itens do banco de dados
+            string Id= "select ID_usuario from Usuarios where Email (UmEmail@gmail.com)";
+            PlayerPrefs.SetString("Id", Id);
         }
 
         reader.Close();
@@ -44,7 +45,8 @@ public class Cadastro : MonoBehaviour
         dbcmd = null;
         dbcon.Close();
         dbcon = null;
-    
-        PlayerPrefs.SetString("Email", "olá");
+
+        
+
     }
 }

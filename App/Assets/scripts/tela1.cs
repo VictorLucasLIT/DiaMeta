@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Mono.Data.Sqlite;
+using Mono.Data;
+using System.Data;
 
 public class tela1 : MonoBehaviour
 {
@@ -14,6 +17,8 @@ public class tela1 : MonoBehaviour
     public string inputGlicemia;
     public string inputData;
     public string inputHora;
+
+
     
     void Start()
     {
