@@ -1456,6 +1456,7 @@ MonoBehaviour:
   SobrenomeInput: {fileID: 431356104}
   EmailInput: {fileID: 1105963009}
   SenhaInput: {fileID: 1347143562}
+  EmailAtivo: {fileID: 1105963009}
 --- !u!4 &866333147
 Transform:
   m_ObjectHideFlags: 0

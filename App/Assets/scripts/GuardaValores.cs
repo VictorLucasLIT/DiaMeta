@@ -23,29 +23,40 @@ public class GuardaValores : MonoBehaviour
         IDbConnection dbcon;
         IDbCommand dbcmd;
         IDataReader reader;
-
-        if (PlayerPrefs.GetInt("QuantID")==null)
-        {    
-            int QuantID= 1;
-            PlayerPrefs.SetInt("QuantID", QuantID);
-        }
-        else
-        {
-            int QuantID= PlayerPrefs.GetInt("QuantID");
-            QuantID+= 1;
-            PlayerPrefs.SetInt("QuantID", QuantID);
-        }
+        int ID_Ativo;
+        
         dbcon = new SqliteConnection(conn);
         dbcon.Open();
         dbcmd = dbcon.CreateCommand();
-        string SQlQuery = "Insert Into Dados(Hora, Glicemia, Data, ID_Dados)" +
-                          "Values('" + _HoraInput + "','" + _GlicemiaInput + "','" + _DataInput + "','" + PlayerPrefs.GetInt("QuantID") + "')";
-        dbcmd.CommandText = SQlQuery;
-        reader = dbcmd.ExecuteReader();
-        while(reader.Read())
+        
+        string SQlQuery = "SELECT ID_usuario FROM Usuarios WHERE Email= '" + PlayerPrefs.GetString("EmailAtivo") +"'";
+            dbcmd.CommandText = SQlQuery;
+            reader = dbcmd.ExecuteReader();
+            while(reader.Read())
+            {
+                string ID= reader.GetString(0);
+                ID_Ativo= ID;
+            }
+        
+        
+        int val;
+        while(val!=null)
         {
-            //Essa parte e para pegar itens do banco de dados
+            string SQlQuery2 = "SELECT ID_dados FROM Dados WHERE FK_Usuário= '" + ID_Ativo +"'";
+            dbcmd.CommandText = SQlQuery2;
+            reader = dbcmd.ExecuteReader();
+            while(reader.Read())
+            {
+                string ID= reader.GetString(0);
+                val= ID;
+            }
         }
+        
+        string SQlQuery3 = "Insert Into Dados(Hora, Glicemia, Data, ID_Dados, FK_Usuário)" +
+                          "Values('" + _HoraInput + "','" + _GlicemiaInput + "','" + _DataInput + "','" + val + 1 +"','" + ID_Ativo + "')";
+        dbcmd.CommandText = SQlQuery3;
+        
+        
 
         reader.Close();
         reader = null;
