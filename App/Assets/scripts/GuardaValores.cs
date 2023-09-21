@@ -23,7 +23,8 @@ public class GuardaValores : MonoBehaviour
         IDbConnection dbcon;
         IDbCommand dbcmd;
         IDataReader reader;
-        int ID_Ativo;
+        
+        int ID_Ativo = 0;
         
         dbcon = new SqliteConnection(conn);
         dbcon.Open();
@@ -34,13 +35,16 @@ public class GuardaValores : MonoBehaviour
             reader = dbcmd.ExecuteReader();
             while(reader.Read())
             {
-                string ID= reader.GetString(0);
-                ID_Ativo= ID;
+                string ID = reader.GetString(0);
+                ID_Ativo= int.Parse("ID");
             }
-        
-        
-        int val;
-        while(val!=null)
+
+        reader.Close();
+        reader = null;
+
+
+        int val= 0;
+        if(val != 0)
         {
             string SQlQuery2 = "SELECT ID_dados FROM Dados WHERE FK_Usuário= '" + ID_Ativo +"'";
             dbcmd.CommandText = SQlQuery2;
@@ -48,18 +52,22 @@ public class GuardaValores : MonoBehaviour
             while(reader.Read())
             {
                 string ID= reader.GetString(0);
-                val= ID;
+                val= int.Parse("ID");
             }
         }
         
         string SQlQuery3 = "Insert Into Dados(Hora, Glicemia, Data, ID_Dados, FK_Usuário)" +
                           "Values('" + _HoraInput + "','" + _GlicemiaInput + "','" + _DataInput + "','" + val + 1 +"','" + ID_Ativo + "')";
         dbcmd.CommandText = SQlQuery3;
-        
-        
+        reader = dbcmd.ExecuteReader();
+        while (reader.Read())
+        {
 
-        reader.Close();
-        reader = null;
+
+        }
+
+
+
         dbcmd.Dispose();
         dbcmd = null;
         dbcon.Close();

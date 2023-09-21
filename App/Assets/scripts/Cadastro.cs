@@ -38,7 +38,7 @@ public class Cadastro : MonoBehaviour
         reader = dbcmd.ExecuteReader();
         while(reader.Read())
         {
-            string Id= "select ID_usuario from Usuarios where Email (UmEmail@gmail.com)";
+            
             
         }
         reader.Close();
@@ -67,8 +67,8 @@ public class Cadastro : MonoBehaviour
         dbcmd.Dispose();
         dbcmd = null;
         dbcon.Close();
-        dbcon = null;
+        dbcon = null;*/
 
-        PlayerPrefs.SetString("Email_Ativo", EmailAtivo.text.Trim());*/
+        PlayerPrefs.SetString("Email_Ativo", EmailAtivo.text.Trim());
     }
 }
