@@ -12,6 +12,11 @@ public class GuardaValores : MonoBehaviour
     public InputField HoraInput;
     public InputField GlicemiaInput;
     public InputField DataInput;
+    int count;
+    public void Start()
+    {
+        Debug.Log(PlayerPrefs.GetString("Email_Ativo"));
+    }
 
     public void InserirInfo()
     {
@@ -24,55 +29,56 @@ public class GuardaValores : MonoBehaviour
         IDbCommand dbcmd;
         IDataReader reader;
         
-        int ID_Ativo = 0;
+        int ID_Ativo=0;
         
         dbcon = new SqliteConnection(conn);
         dbcon.Open();
         dbcmd = dbcon.CreateCommand();
-        
-        string SQlQuery = "SELECT ID_usuario FROM Usuarios WHERE Email= '" + PlayerPrefs.GetString("EmailAtivo") +"'";
+
+        string SQlQuery = "SELECT ID_usuario FROM Usuarios WHERE Email= '" + PlayerPrefs.GetString("Email_Ativo") +"'";
             dbcmd.CommandText = SQlQuery;
-            reader = dbcmd.ExecuteReader();
-            while(reader.Read())
+            object result = dbcmd.ExecuteScalar();
+
+            if (result != null)
             {
-                string ID = reader.GetString(0);
-                ID_Ativo= int.Parse("ID");
+              int.TryParse(result.ToString(), out ID_Ativo);
             }
 
-        reader.Close();
-        reader = null;
+            else
+            {
+                // Trate o caso em que nenhum resultado foi retornado
+                Debug.Log("Nenhum email encontrado.");
+            }
 
 
         int val= 0;
-        if(val != 0)
-        {
-            string SQlQuery2 = "SELECT ID_dados FROM Dados WHERE FK_Usuário= '" + ID_Ativo +"'";
-            dbcmd.CommandText = SQlQuery2;
-            reader = dbcmd.ExecuteReader();
-            while(reader.Read())
-            {
-                string ID= reader.GetString(0);
-                val= int.Parse("ID");
-            }
-        }
         
-        string SQlQuery3 = "Insert Into Dados(Hora, Glicemia, Data, FK_Usuário)" +
-                          "Values('" + _HoraInput + "','" + _GlicemiaInput + "','" + _DataInput + "','"  + ID_Ativo + "')";
-        dbcmd.CommandText = SQlQuery3;
-        reader = dbcmd.ExecuteReader();
-        while (reader.Read())
+        string SQlQuery2 = "SELECT COUNT(ID_Dados) FROM Dados WHERE FK_Usuário= '" + ID_Ativo +"'";
+        dbcmd.CommandText = SQlQuery2;
+        object result1 = dbcmd.ExecuteScalar();
+        
+        if (result1 != null)
         {
-
-
+            int.TryParse(result1.ToString(), out val);
         }
 
+        else
+        {
+            // Trate o caso em que nenhum resultado foi retornado
+            Debug.Log("Nenhum email encontrado.");
+        }
 
+        int ValFinal= val + 1;
 
+        string SQlQuery4 = "Insert Into Dados(Hora, Glicemia, Data, FK_Usuário, ID_Dados)" +
+                          "Values('" + _HoraInput + "','" + _GlicemiaInput + "','" + _DataInput + "','"  + ID_Ativo + "','" + ValFinal +"')";
+        dbcmd.CommandText = SQlQuery4;
+        
         dbcmd.Dispose();
         dbcmd = null;
         dbcon.Close();
         dbcon = null;
     
-
+        PlayerPrefs.SetString("DataAtual", _DataInput);
     }
 }

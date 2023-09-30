@@ -9,12 +9,13 @@ using System.Data;
 public class Cadastro : MonoBehaviour
 {
     public string DataBaseNome;
+    
     public InputField NomeInput;
     public InputField SobrenomeInput;
     public InputField EmailInput;
     public InputField SenhaInput;
     public InputField EmailAtivo;
-
+    
     public void InserirInfo()
     {
         
@@ -71,4 +72,5 @@ public class Cadastro : MonoBehaviour
 
         PlayerPrefs.SetString("Email_Ativo", EmailAtivo.text.Trim());
     }
+    
 }
