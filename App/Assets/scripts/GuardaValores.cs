@@ -70,15 +70,23 @@ public class GuardaValores : MonoBehaviour
 
         int ValFinal= val + 1;
 
-        string SQlQuery4 = "Insert Into Dados(Hora, Glicemia, Data, FK_Usuário, ID_Dados)" +
+        string SQlQuery3 = "Insert Into Dados(Hora, Glicemia, Data, FK_Usuário, ID_Dados)" +
                           "Values('" + _HoraInput + "','" + _GlicemiaInput + "','" + _DataInput + "','"  + ID_Ativo + "','" + ValFinal +"')";
-        dbcmd.CommandText = SQlQuery4;
-        
+        dbcmd.CommandText = SQlQuery3;
+        reader = dbcmd.ExecuteReader();
+        while(reader.Read())
+        {
+            
+            
+        }
+        reader.Close();
+        reader = null;
         dbcmd.Dispose();
         dbcmd = null;
         dbcon.Close();
         dbcon = null;
     
         PlayerPrefs.SetString("DataAtual", _DataInput);
+        PlayerPrefs.SetInt("ID_Ativo", ID_Ativo);
     }
 }

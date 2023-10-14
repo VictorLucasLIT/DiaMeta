@@ -158,7 +158,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -173.9, y: 446}
+  m_AnchoredPosition: {x: -294.63, y: 332.8}
   m_SizeDelta: {x: 347.8, y: 274}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &106550050
@@ -174,6 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CirculoSprite: {fileID: 21300000, guid: 21cce047051f1a24b96c103677732e29, type: 3}
+  DataBaseNome: BancoDados
 --- !u!1 &148621036
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,8 +210,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -94.8, y: 126}
-  m_SizeDelta: {x: 26.23, y: 45.8}
+  m_AnchoredPosition: {x: -119.94, y: -66.2}
+  m_SizeDelta: {x: 107.91, y: 42.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &256382167
 GameObject:

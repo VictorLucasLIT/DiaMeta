@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using CodeMonkey.Utils;
+using Mono.Data.Sqlite;
+using Mono.Data;
+using System.Data;
 
 public class Grafico2 : MonoBehaviour
 {
@@ -10,39 +13,70 @@ public class Grafico2 : MonoBehaviour
     private RectTransform graficoConteiner;
     private RectTransform labelTemplateX;
     private RectTransform labelTemplateY;
-    
+    public string DataBaseNome;
+
+    string Data;
     List<int> valorLista= new List<int>() {0, 0, 0, 0, 0, 0, 0};
     int vez;
     
     private void Awake()
     {
+        Data = PlayerPrefs.GetString("DataAtual");
+
         graficoConteiner = transform.Find("graficoConteiner").GetComponent<RectTransform>();
         labelTemplateX = graficoConteiner.Find("labelTemplateX").GetComponent<RectTransform>();
         labelTemplateY = graficoConteiner.Find("labelTemplateY").GetComponent<RectTransform>();
 
-        int valorG= int.Parse(PlayerPrefs.GetString("Glicemia"));
+        
         string valorD= PlayerPrefs.GetString("Data");
         string valorH= PlayerPrefs.GetString("Hora");
-        
-        for (int i=0; i<7; i++)
-            {
-                int val= PlayerPrefs.GetInt("Lista" +i);
-                valorLista[i]=val;
-            }
 
         vez= PlayerPrefs.GetInt("Vez");
-        AddGlicose(valorG);
+        AddGlicose();
         MostraGrafico(valorLista);
+
+        PlayerPrefs.Save();
         
-        for (int i=0; i<valorLista.Count; i++)
-            {
-                PlayerPrefs.SetInt("Lista" +i, (valorLista[i]));
-            }
-            PlayerPrefs.Save();
     }
 
-    void AddGlicose(int valor)
+    void AddGlicose()
     {
+        string conn = SetDataBaseClass.SetDataBase(DataBaseNome + ".db");
+        IDbConnection dbcon;
+        IDbCommand dbcmd;
+        IDataReader reader;
+        
+        dbcon = new SqliteConnection(conn);
+        dbcon.Open();
+        dbcmd = dbcon.CreateCommand();
+
+        for (int i=0; i<valorLista.Count; i++)
+            {
+                int IdDados= i+1;
+                string SQlQuery2 = "SELECT COUNT(Glicemia) FROM Dados WHERE Data= '" + PlayerPrefs.GetString("DataAtual") +"' AND FK_Usuário= '"+ PlayerPrefs.GetInt("ID_Ativo") +"' AND ID_Dados= '"+ IdDados +"'";
+                dbcmd.CommandText = SQlQuery2;
+                object result = dbcmd.ExecuteScalar();
+
+                if(result != "0")
+                {
+                string SQlQuery1 = "SELECT Glicemia FROM Dados WHERE Data= '" + PlayerPrefs.GetString("DataAtual") +"' AND FK_Usuário= '"+ PlayerPrefs.GetInt("ID_Ativo") +"' AND ID_Dados= '"+ IdDados +"'";
+                dbcmd.CommandText = SQlQuery1;
+                object result1 = dbcmd.ExecuteScalar();
+                int ValorDado;
+                if (result1 !=null )
+                {    
+                    int.TryParse(result1.ToString(), out ValorDado);
+                    PlayerPrefs.SetInt("Lista"+i, ValorDado);
+                    valorLista[i]= ValorDado;
+                }
+                }
+                else
+                {
+                    PlayerPrefs.SetInt("Lista"+i, 0);
+                    valorLista[i]= 0;
+                }
+        
+        /*
         if (vez!=7)
         {
             valorLista[vez]=(valor);
@@ -60,10 +94,13 @@ public class Grafico2 : MonoBehaviour
             valorLista[vez]=(valor);
             vez+= 1;
             PlayerPrefs.SetInt("Vez", vez);
-            PlayerPrefs.Save();
+            PlayerPrefs.Save();*/
         }    
-    
-    }   
+       dbcmd.Dispose();
+        dbcmd = null;
+        dbcon.Close();
+        dbcon = null; 
+    }  
     
     private GameObject CriarCirculo(Vector2 anchoredPosition)
     {
@@ -130,4 +167,5 @@ public class Grafico2 : MonoBehaviour
         rectTransform.anchoredPosition= dotPositionA + dir * distance * .5f;
         rectTransform.localEulerAngles =  new Vector3(0, 0, UtilsClass.GetAngleFromVectorFloat(dir));
     }
+
 }

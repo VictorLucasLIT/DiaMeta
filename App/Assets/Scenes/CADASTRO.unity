@@ -973,6 +973,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 866333147}
+  - component: {fileID: 866333150}
   - component: {fileID: 866333146}
   - component: {fileID: 866333148}
   - component: {fileID: 866333149}
@@ -1041,6 +1042,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23c5407ff3547a04f89dadf8f2717aa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &866333150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866333145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f85140d968e1742be14d54c49c2733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NameInput: {fileID: 144663921}
+  SobrenomeInput: {fileID: 431356104}
+  EmailInput: {fileID: 1105963009}
+  PasswordInput: {fileID: 1347143562}
+  DataBaseName: BancoDados
+  CadastroStatus: {fileID: 0}
+  EmailAtivo: {fileID: 1105963009}
 --- !u!1 &870414589
 GameObject:
   m_ObjectHideFlags: 0

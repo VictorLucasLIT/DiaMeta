@@ -43,7 +43,7 @@ public class testes : MonoBehaviour
             if (int.TryParse(result.ToString(), out count))
             {
                 // Agora você pode usar 'count' como um valor inteiro
-                Debug.Log("Contagem de emails encontrados: " + count);
+                
             }
             else
             {
