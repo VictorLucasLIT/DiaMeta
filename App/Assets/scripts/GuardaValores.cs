@@ -53,7 +53,7 @@ public class GuardaValores : MonoBehaviour
 
         int val= 0;
         
-        string SQlQuery2 = "SELECT COUNT(ID_Dados) FROM Dados WHERE FK_Usuário= '" + ID_Ativo +"'";
+        string SQlQuery2 = "SELECT COUNT(ID_Dados) FROM Dados WHERE FK_Usuário= '" + ID_Ativo +"'AND Data= '"+ _DataInput +"'";
         dbcmd.CommandText = SQlQuery2;
         object result1 = dbcmd.ExecuteScalar();
         

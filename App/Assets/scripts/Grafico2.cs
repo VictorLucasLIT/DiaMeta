@@ -19,7 +19,8 @@ public class Grafico2 : MonoBehaviour
     List<int> valorLista= new List<int>() {0, 0, 0, 0, 0, 0, 0};
     int vez;
     
-    private void Awake()
+
+    private void Start()
     {
         Data = PlayerPrefs.GetString("DataAtual");
 
@@ -109,7 +110,7 @@ public class Grafico2 : MonoBehaviour
         gameObject.GetComponent<Image>().sprite= CirculoSprite;
         RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
         rectTransform.anchoredPosition= (anchoredPosition);
-        rectTransform.sizeDelta= new Vector2(11, 11);
+        rectTransform.sizeDelta= new Vector2(22, 22);
         rectTransform.anchorMin= new Vector2(0, 0);
         rectTransform.anchorMax= new Vector2(0, 0);
         return gameObject;
@@ -119,7 +120,7 @@ public class Grafico2 : MonoBehaviour
     {
         float graficoHeight= graficoConteiner.sizeDelta.y;
         float yMaximum= 100f;
-        float xSize= 30f;
+        float xSize= 120f;
         
         GameObject ultimoCirculoGameObject = null;
         for (int i=0; i< valorLista.Count; i++)
@@ -136,7 +137,7 @@ public class Grafico2 : MonoBehaviour
             RectTransform labelX = Instantiate(labelTemplateX);
             labelX.SetParent(graficoConteiner, false);
             labelX.gameObject.SetActive(true);
-            labelX.anchoredPosition = new Vector2(xPosition, -10f);
+            labelX.anchoredPosition = new Vector2(xPosition, -20f);
             labelX.GetComponent<Text>().text = (i+1).ToString();
         }
         int yValores = 0;
@@ -147,7 +148,7 @@ public class Grafico2 : MonoBehaviour
             labelY.SetParent(graficoConteiner, false);
             labelY.gameObject.SetActive(true);
             float normalizaValor = i * 1f / separador;
-            labelY.anchoredPosition = new Vector2(-8f, normalizaValor* 150);
+            labelY.anchoredPosition = new Vector2(-8f, normalizaValor* 600);
             labelY.GetComponent<Text>().text = Mathf.RoundToInt(yValores).ToString();
             yValores+= 50;
         } 
@@ -164,8 +165,7 @@ public class Grafico2 : MonoBehaviour
         rectTransform.sizeDelta= new Vector2(distance, 3f);
         rectTransform.anchorMin= new Vector2(0, 0);
         rectTransform.anchorMax= new Vector2(0, 0);
-        rectTransform.anchoredPosition= dotPositionA + dir * distance * .5f;
+        rectTransform.anchoredPosition= dotPositionA + dir * distance * .50f;
         rectTransform.localEulerAngles =  new Vector3(0, 0, UtilsClass.GetAngleFromVectorFloat(dir));
     }
-
 }
