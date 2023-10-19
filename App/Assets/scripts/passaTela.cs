@@ -18,4 +18,23 @@ public class passaTela : MonoBehaviour
         var _DataInput = DataInput.text.Trim();
         PlayerPrefs.SetString("DataAtual", _DataInput);
     }
+
+    public void PassarIf()
+    {
+        string EmailAtivo= PlayerPrefs.GetString("Email_Ativo");
+        if(EmailAtivo!="")
+        {
+            SceneManager.LoadScene("TELA1");
+        }
+        else
+        {
+            SceneManager.LoadScene("LOGIN");
+        }
+    }
+
+    public void Deslogar()
+    {
+        PlayerPrefs.SetString("Email_Ativo", null);
+        SceneManager.LoadScene("LOGIN");
+    }
 }

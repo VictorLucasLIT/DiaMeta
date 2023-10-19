@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Mono.Data.Sqlite;
 using Mono.Data;
 using System.Data;
+using UnityEngine.SceneManagement;
 
 public class Cadastro : MonoBehaviour
 {
@@ -15,7 +16,10 @@ public class Cadastro : MonoBehaviour
     public InputField EmailInput;
     public InputField SenhaInput;
     public InputField EmailAtivo;
-    
+    public string Cena;
+    public Text SenhaTxt;
+    public Text EmailTxt;
+
     public void InserirInfo()
     {
         
@@ -33,17 +37,40 @@ public class Cadastro : MonoBehaviour
         dbcon = new SqliteConnection(conn);
         dbcon.Open();
         dbcmd = dbcon.CreateCommand();
-        string SQlQuery = "Insert Into Usuarios(Nome, Sobrenome, Email, Senha)" +
-                          "Values('" + _NomeInput + "','" + _SobrenomeInput + "','" + _EmailInput + "','" + _SenhaInput + "')";
+
+        string SQlQuery = "Select Count (Email) From Usuarios Where Email= '"+ _EmailInput +"'";
         dbcmd.CommandText = SQlQuery;
-        reader = dbcmd.ExecuteReader();
-        while(reader.Read())
+        object result = dbcmd.ExecuteScalar();
+        
+        if(result=="0")
         {
-            
-            
+            EmailTxt.text= "";
+        
+        if(_EmailInput.Length>=7)
+        {
+            EmailTxt.text= "";
+
+        if(_SenhaInput.Length>=8)
+        {
+            string SQlQuery2 = "Insert Into Usuarios(Nome, Sobrenome, Email, Senha)" +
+                              "Values('" + _NomeInput + "','" + _SobrenomeInput + "','" + _EmailInput + "','" + _SenhaInput + "')";
+            dbcmd.CommandText = SQlQuery2;
+            SceneManager.LoadScene(Cena);
         }
-        reader.Close();
-        reader = null;
+        else
+        {
+            SenhaTxt.text= "A senha possui menos de 8 caracteres";
+        }
+        }
+        else
+        {
+            EmailTxt.text= "O email possui menos de 7 caracteres";
+        }
+        }
+        else
+        {
+            EmailTxt.text= "O email já está cadastrado";
+        }
         dbcmd.Dispose();
         dbcmd = null;
         dbcon.Close();

@@ -40,22 +40,7 @@ public class testes : MonoBehaviour
 
             if (result != null)
             {
-            if (int.TryParse(result.ToString(), out count))
-            {
-                // Agora você pode usar 'count' como um valor inteiro
-                
-            }
-            else
-            {
-                // Trate o caso em que a conversão falhou
-                Debug.LogError("Falha na conversão do resultado para int.");
-            }
-            }
-
-            else
-            {
-                // Trate o caso em que nenhum resultado foi retornado
-                Debug.Log("Nenhum email encontrado.");
+             int.TryParse(result.ToString(), out count);
             }
 
             if (count==1)
@@ -70,7 +55,9 @@ public class testes : MonoBehaviour
                     string quant = reader.GetString(0);
                     Senha= quant;
                 }
-            
+
+                EmailTxt.text= " ";
+                
                 if (_SenhaInputL== Senha)
                 {
                     SceneManager.LoadScene(Cena); 

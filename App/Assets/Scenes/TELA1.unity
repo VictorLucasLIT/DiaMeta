@@ -255,7 +255,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: CADASTRO
+          m_StringArgument: TELA_INICIAL
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &233337866
@@ -639,6 +639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23c5407ff3547a04f89dadf8f2717aa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DataInput: {fileID: 0}
 --- !u!114 &519420036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -737,7 +738,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 576632854}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 519420035}
+        m_TargetAssemblyTypeName: passaTela, Assembly-CSharp
+        m_MethodName: Deslogar
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &576632854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1488,6 +1501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23c5407ff3547a04f89dadf8f2717aa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DataInput: {fileID: 0}
 --- !u!1 &1107352427
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,9 +14,17 @@ public class Grafico2 : MonoBehaviour
     private RectTransform labelTemplateX;
     private RectTransform labelTemplateY;
     public string DataBaseNome;
+    public Text Hora1;
+    public Text Hora2;
+    public Text Hora3;
+    public Text Hora4;
+    public Text Hora5;
+    public Text Hora6;
+    public Text Hora7;
 
     string Data;
     List<int> valorLista= new List<int>() {0, 0, 0, 0, 0, 0, 0};
+    List<string> ListaHora= new List<string>() {"00:00", "00:00", "00:00", "00:00", "00:00", "00:00", "00:00"};
     int vez;
     
 
@@ -66,10 +74,15 @@ public class Grafico2 : MonoBehaviour
                 int ValorDado;
                 if (result1 !=null )
                 {    
+                    string SQlQuery3 = "SELECT Hora FROM Dados WHERE Data= '" + PlayerPrefs.GetString("DataAtual") +"' AND FK_Usuário= '"+ PlayerPrefs.GetInt("ID_Ativo") +"' AND ID_Dados= '"+ IdDados +"'AND Glicemia= '"+ result1 +"'";
+                    dbcmd.CommandText = SQlQuery3;
+                    object result2 = dbcmd.ExecuteScalar();
+                    
                     int.TryParse(result1.ToString(), out ValorDado);
                     PlayerPrefs.SetInt("Lista"+i, ValorDado);
                     valorLista[i]= ValorDado;
-                }
+                    ListaHora[i]= result2.ToString();
+                } 
                 }
                 else
                 {
@@ -96,11 +109,20 @@ public class Grafico2 : MonoBehaviour
             vez+= 1;
             PlayerPrefs.SetInt("Vez", vez);
             PlayerPrefs.Save();*/
+            Hora1.text=ListaHora[0];
+        Hora2.text=ListaHora[1];
+        Hora3.text=ListaHora[2];
+        Hora4.text=ListaHora[3];
+        Hora5.text=ListaHora[4];
+        Hora6.text=ListaHora[5];
+        Hora7.text=ListaHora[6];
         }    
-       dbcmd.Dispose();
+       
+        dbcmd.Dispose();
         dbcmd = null;
         dbcon.Close();
-        dbcon = null; 
+        dbcon = null;
+
     }  
     
     private GameObject CriarCirculo(Vector2 anchoredPosition)
@@ -138,7 +160,7 @@ public class Grafico2 : MonoBehaviour
             labelX.SetParent(graficoConteiner, false);
             labelX.gameObject.SetActive(true);
             labelX.anchoredPosition = new Vector2(xPosition, -20f);
-            labelX.GetComponent<Text>().text = (i+1).ToString();
+            labelX.GetComponent<Text>().text = (" ");
         }
         int yValores = 0;
         int separador= 6;
