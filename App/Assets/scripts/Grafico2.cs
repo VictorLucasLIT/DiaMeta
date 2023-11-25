@@ -109,7 +109,7 @@ public class Grafico2 : MonoBehaviour
             vez+= 1;
             PlayerPrefs.SetInt("Vez", vez);
             PlayerPrefs.Save();*/
-            Hora1.text=ListaHora[0];
+        Hora1.text=ListaHora[0];
         Hora2.text=ListaHora[1];
         Hora3.text=ListaHora[2];
         Hora4.text=ListaHora[3];
