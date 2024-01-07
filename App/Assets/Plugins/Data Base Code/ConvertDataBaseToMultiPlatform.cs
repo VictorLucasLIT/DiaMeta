@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.IO;
 
 public class ConvertDataBaseToMultiPlatform : MonoBehaviour
 {
@@ -6,9 +7,9 @@ public class ConvertDataBaseToMultiPlatform : MonoBehaviour
 
     public void Awake()
     {
-        GenerateConnectionString(DataBaseName+".db");
-        
+        GenerateConnectionString(DataBaseName + ".db");
     }
+
     public void GenerateConnectionString(string DatabaseName)
     {
 #if UNITY_EDITOR
@@ -22,14 +23,16 @@ public class ConvertDataBaseToMultiPlatform : MonoBehaviour
             // if it doesn't ->
             // open StreamingAssets directory and load the db ->
 #if UNITY_ANDROID
-                WWW loadDb = new WWW("jar:file://" + Application.dataPath + "!/assets/" + DatabaseName);  // this is the path to your StreamingAssets in android
+                WWW loadDb = new WWW("jar:file://" + Application.dataPath + "/StreamingAssets/" + DatabaseName);  // this is the path to your StreamingAssets in android
                 while (!loadDb.isDone) { }  // CAREFUL here, for safety reasons you shouldn't let this while loop unattended, place a timer and error check
                 // then save to Application.persistentDataPath
                 File.WriteAllBytes(filepath, loadDb.bytes);
 #elif UNITY_IOS
-                var loadDb = Application.dataPath + "/Raw/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
-                // then save to Application.persistentDataPath
-                File.Copy(loadDb, filepath);
+                // Inicializar a variável file aqui
+                var file = File.OpenRead(Application.dataPath + "/Raw/" + DatabaseName);
+
+                File.Copy(file, filepath);
+                file.Close();  // Fechar o arquivo após a cópia
 #elif UNITY_WP8
                 var loadDb = Application.dataPath + "/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
                 // then save to Application.persistentDataPath
@@ -40,12 +43,9 @@ public class ConvertDataBaseToMultiPlatform : MonoBehaviour
                 File.Copy(loadDb, filepath);
 #endif
         }
-        
+
         var dbPath = filepath;
 #endif
-        
-
-
     }
 
 
