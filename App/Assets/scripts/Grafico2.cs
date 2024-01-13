@@ -21,6 +21,8 @@ public class Grafico2 : MonoBehaviour
     public Text Hora5;
     public Text Hora6;
     public Text Hora7;
+    
+    
 
     string Data;
     List<int> valorLista= new List<int>() {0, 0, 0, 0, 0, 0, 0};
@@ -140,10 +142,18 @@ public class Grafico2 : MonoBehaviour
 
     private void MostraGrafico(List<int> valorLista)
     {
+        float UiWidth;
+        float UiHeight;
+        GameObject UiObj = GameObject.Find("PainelGrafFront");
+        RectTransform UiRectTransform = UiObj.GetComponent<RectTransform>();
+        UiWidth = UiRectTransform.rect.width;
+        UiHeight = UiRectTransform.rect.height;
+        Debug.Log(UiWidth);
+
         float graficoHeight= graficoConteiner.sizeDelta.y;
-        float yMaximum= 100f;
-        float xSize= 120f;
-        
+        float yMaximum= ((653.8f*100)/UiHeight);
+        float xSize= (UiWidth*120)/932;
+        Debug.Log(yMaximum);
         GameObject ultimoCirculoGameObject = null;
         for (int i=0; i< valorLista.Count; i++)
         {
@@ -170,7 +180,7 @@ public class Grafico2 : MonoBehaviour
             labelY.SetParent(graficoConteiner, false);
             labelY.gameObject.SetActive(true);
             float normalizaValor = i * 1f / separador;
-            labelY.anchoredPosition = new Vector2(-8f, normalizaValor* 600);
+            labelY.anchoredPosition = new Vector2(-8f, normalizaValor* ((UiHeight*91.77f)/100));
             labelY.GetComponent<Text>().text = Mathf.RoundToInt(yValores).ToString();
             yValores+= 50;
         } 

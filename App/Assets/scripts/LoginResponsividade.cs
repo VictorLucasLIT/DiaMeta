@@ -31,8 +31,8 @@ public class LoginResponsividade : MonoBehaviour {
         UiHeight = UiRectTransform.rect.height;
         Debug.Log(UiHeight); 
         //UiRectTransform.sizeDelta = new Vector2(((DicionarioUW[NomeGO]*larguraDaTela)/100), ((DicionarioUH[NomeGO]*alturaDaTela)/100));
-        UiRectTransform.sizeDelta = new Vector2(20f, 0f);
-        UiHeight = UiRectTransform.rect.height;
+        //UiRectTransform.sizeDelta = new Vector2(20f, 0f);
+        //UiHeight = UiRectTransform.rect.height;
         // Exemplo de uso
         
 
