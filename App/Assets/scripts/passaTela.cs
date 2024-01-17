@@ -19,7 +19,7 @@ public class passaTela : MonoBehaviour
         PlayerPrefs.SetString("DataAtual", _DataInput);
     }
 
-    public void PassarIf()
+    public void PassarIfComeca()
     {
         string EmailAtivo= PlayerPrefs.GetString("Email_Ativo");
         if(EmailAtivo!="")
@@ -29,6 +29,18 @@ public class passaTela : MonoBehaviour
         else
         {
             SceneManager.LoadScene("LOGIN");
+        }
+    }
+    public void PassarIfGraph(Text ErroTxt)
+    {
+        string EmailAtivo= PlayerPrefs.GetString("Email_Ativo");
+        if(EmailAtivo!="")
+        {
+            SceneManager.LoadScene("DIAS");
+        }
+        else
+        {
+            ErroTxt.text="Nenhuma conta logada.";
         }
     }
 

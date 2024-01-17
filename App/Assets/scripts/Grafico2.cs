@@ -74,8 +74,10 @@ public class Grafico2 : MonoBehaviour
                 dbcmd.CommandText = SQlQuery1;
                 object result1 = dbcmd.ExecuteScalar();
                 int ValorDado;
-                if (result1 !=null )
+                
+                if (result1 !=null)
                 {    
+                    if(int.Parse(result1.ToString())<250){
                     string SQlQuery3 = "SELECT Hora FROM Dados WHERE Data= '" + PlayerPrefs.GetString("DataAtual") +"' AND FK_Usuário= '"+ PlayerPrefs.GetInt("ID_Ativo") +"' AND ID_Dados= '"+ IdDados +"'AND Glicemia= '"+ result1 +"'";
                     dbcmd.CommandText = SQlQuery3;
                     object result2 = dbcmd.ExecuteScalar();
@@ -84,6 +86,19 @@ public class Grafico2 : MonoBehaviour
                     PlayerPrefs.SetInt("Lista"+i, ValorDado);
                     valorLista[i]= ValorDado;
                     ListaHora[i]= result2.ToString();
+                    }
+                }
+                if(result1 !=null){
+                    if(int.Parse(result1.ToString())>250){
+                    string SQlQuery3 = "SELECT Hora FROM Dados WHERE Data= '" + PlayerPrefs.GetString("DataAtual") +"' AND FK_Usuário= '"+ PlayerPrefs.GetInt("ID_Ativo") +"' AND ID_Dados= '"+ IdDados +"'AND Glicemia= '"+ result1 +"'";
+                    dbcmd.CommandText = SQlQuery3;
+                    object result2 = dbcmd.ExecuteScalar();
+                    
+                    int.TryParse(result1.ToString(), out ValorDado);
+                    PlayerPrefs.SetInt("Lista"+i, ValorDado);
+                    valorLista[i]= 300;
+                    ListaHora[i]= result2.ToString();
+                    }
                 } 
                 }
                 else
@@ -148,12 +163,9 @@ public class Grafico2 : MonoBehaviour
         RectTransform UiRectTransform = UiObj.GetComponent<RectTransform>();
         UiWidth = UiRectTransform.rect.width;
         UiHeight = UiRectTransform.rect.height;
-        Debug.Log(UiWidth);
-
         float graficoHeight= graficoConteiner.sizeDelta.y;
         float yMaximum= ((653.8f*100)/UiHeight);
         float xSize= (UiWidth*120)/932;
-        Debug.Log(yMaximum);
         GameObject ultimoCirculoGameObject = null;
         for (int i=0; i< valorLista.Count; i++)
         {
@@ -173,17 +185,25 @@ public class Grafico2 : MonoBehaviour
             labelX.GetComponent<Text>().text = (" ");
         }
         int yValores = 0;
-        int separador= 6;
+        int separador= 7;
         for (int i=0; i <separador ; i++)
         {
             RectTransform labelY = Instantiate(labelTemplateY);
             labelY.SetParent(graficoConteiner, false);
             labelY.gameObject.SetActive(true);
             float normalizaValor = i * 1f / separador;
-            labelY.anchoredPosition = new Vector2(-8f, normalizaValor* ((UiHeight*91.77f)/100));
+            labelY.anchoredPosition = new Vector2(-8f, normalizaValor* ((UiHeight*91.77f)/90));
             labelY.GetComponent<Text>().text = Mathf.RoundToInt(yValores).ToString();
             yValores+= 50;
-        } 
+        if(i==6){
+            labelY.SetParent(graficoConteiner, false);
+            labelY.gameObject.SetActive(true);
+            normalizaValor = i * 1f / separador;
+            labelY.anchoredPosition = new Vector2(-8f, normalizaValor* ((UiHeight*91.77f)/90));
+            labelY.GetComponent<Text>().text =("+250");
+            } 
+            }
+            
     }
 
     private void CreateDotConnection(Vector2 dotPositionA, Vector2 dotPositionB)
