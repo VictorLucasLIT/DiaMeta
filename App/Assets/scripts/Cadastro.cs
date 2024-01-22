@@ -37,24 +37,22 @@ public class Cadastro : MonoBehaviour
         dbcon = new SqliteConnection(conn);
         dbcon.Open();
         dbcmd = dbcon.CreateCommand();
-
-        string SQlQuery = "Select Count (Email) From Usuarios Where Email= '"+ _EmailInput +"'";
+        string SQlQuery = "Select Count (Nome) From Usuarios Where Email= '"+ _EmailInput +"'";
         dbcmd.CommandText = SQlQuery;
         object result = dbcmd.ExecuteScalar();
         
-        if(result=="0")
+        if(result.ToString()=="0")
         {
             EmailTxt.text= "";
-        
-        if(_EmailInput.Length>=7)
+        if((_EmailInput.ToString()).Length>=7)
         {
             EmailTxt.text= "";
-
-        if(_SenhaInput.Length>=8)
+            if((_SenhaInput.ToString()).Length>=8)
         {
             string SQlQuery2 = "Insert Into Usuarios(Nome, Sobrenome, Email, Senha)" +
                               "Values('" + _NomeInput + "','" + _SobrenomeInput + "','" + _EmailInput + "','" + _SenhaInput + "')";
             dbcmd.CommandText = SQlQuery2;
+            reader = dbcmd.ExecuteReader();
             SceneManager.LoadScene(Cena);
         }
         else
@@ -62,19 +60,20 @@ public class Cadastro : MonoBehaviour
             SenhaTxt.text= "A senha possui menos de 8 caracteres";
         }
         }
-        else
+            else
         {
             EmailTxt.text= "O email possui menos de 7 caracteres";
         }
         }
         else
         {
+            
             EmailTxt.text= "O email já está cadastrado";
         }
-        dbcmd.Dispose();
-        dbcmd = null;
-        dbcon.Close();
-        dbcon = null;
+            dbcmd.Dispose();
+            dbcmd = null;
+            dbcon.Close();
+            dbcon = null;
         
         /*dbcon = new SqliteConnection(conn);
         dbcon.Open();

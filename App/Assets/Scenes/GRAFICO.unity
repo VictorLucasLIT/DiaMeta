@@ -3145,7 +3145,6 @@ GameObject:
   - component: {fileID: 1085980483}
   - component: {fileID: 1085980485}
   - component: {fileID: 1085980484}
-  - component: {fileID: 1085980486}
   m_Layer: 5
   m_Name: PainelGrafFront
   m_TagString: Untagged
@@ -3213,22 +3212,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1085980482}
   m_CullTransparentMesh: 1
---- !u!114 &1085980486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1085980482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c93bd0d963770d40a67188389af8033, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  larguraDaTela: 0
-  alturaDaTela: 0
-  UiWidth: 0
-  UiHeight: 0
 --- !u!1 &1121595392
 GameObject:
   m_ObjectHideFlags: 0
